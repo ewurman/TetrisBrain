@@ -100,9 +100,6 @@ public class LameBrain implements Brain {
           XXX                             XXX
 
 
-
-
-
  */
  public double rateBoard(Board board) {
   final int width = board.getWidth();
@@ -117,7 +114,8 @@ public class LameBrain implements Brain {
    sumHeight += colHeight;
    
    int y = colHeight - 2; // addr of first possible hole
-   
+   // Suck It Sina
+   //You look funny ;)
    while (y>=0) {
     if  (!board.getGrid(x,y)) {
      holes++;
@@ -132,5 +130,8 @@ public class LameBrain implements Brain {
   // The weights, 8, 40, etc., are just made up numbers that appear to work
   return (8*maxHeight + 40*avgHeight + 1.25*holes); 
  }
+
+
+
 
 }
