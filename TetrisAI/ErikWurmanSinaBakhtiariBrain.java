@@ -117,7 +117,8 @@ public class LameBrain implements Brain {
    sumHeight += colHeight;
    
    int y = colHeight - 2; // addr of first possible hole
-   
+   // Suck it Erik
+   // I'm writing a comment
    while (y>=0) {
     if  (!board.getGrid(x,y)) {
      holes++;
