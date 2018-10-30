@@ -1,4 +1,4 @@
-/**
+/*
  A simple Brain implementation.
  bestMove() iterates through all the possible x values
  and rotations to play a particular piece (there are only
@@ -12,7 +12,7 @@
 */
 
 public class LameBrain implements Brain {
- /**
+ /*
   Given a piece and a board, returns a move object that represents
   the best play for that piece, or returns null if no play is possible.
   See the Brain interface for details.
@@ -114,8 +114,7 @@ public class LameBrain implements Brain {
    sumHeight += colHeight;
    
    int y = colHeight - 2; // addr of first possible hole
-   // Suck It Sina
-   //You look funny ;)
+
    while (y>=0) {
     if  (!board.getGrid(x,y)) {
      holes++;
