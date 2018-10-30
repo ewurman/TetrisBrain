@@ -78,6 +78,8 @@ public class LameBrain implements Brain {
   See Tetris-Architecture.html for brain ideas.
 
   Here are some features that hurt the board:
+  - The Max height
+  - The average height
   - The difference in the range of column hights
   - The Number of Holes
       A hole that is covered is worse,
