@@ -76,6 +76,33 @@ public class LameBrain implements Brain {
   This version just counts the height
   and the number of "holes" in the board.
   See Tetris-Architecture.html for brain ideas.
+
+  Here are some features that hurt the board:
+  - The Max height
+  - The average height
+  - The difference in the range of column hights
+  - The Number of Holes
+      A hole that is covered is worse,
+      an uncovered hole further from the adjacent column heights is worse
+
+      Sina's Hole Definition:
+        a space is a hole if it has 2+ adjacent blocks (including all 3 boundaries)
+          holes count for 1 if they are adjacent to 2 blocks,
+          they count for 2 if they're adjacents to 3 blocks,
+          and if they are blockaded (4 or 3 or 2 adjacent) then sina wants to figure out how to handle it.
+
+      Erik's Hole Defiintion:
+        a space is a hole if any or the left column, this column, or the right column 
+        has a column height as high or higher than the current space.
+          Holes count for as many of these 3 columns as are as tall or taller, so
+          XXX                             X  
+          X_X   Would count as 3 whereas  X_X  would count as 2
+          XXX                             XXX
+
+
+
+
+
  */
  public double rateBoard(Board board) {
   final int width = board.getWidth();
