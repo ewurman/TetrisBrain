@@ -11,7 +11,7 @@
  brain -- just subclass off LameBrain and override rateBoard().
 */
 
-public class LameBrain implements Brain {
+public class ErikWurmanSinaBakhtiariBrain implements Brain {
     /*
     Given a piece and a board, returns a move object that represents
     the best play for that piece, or returns null if no play is possible.
@@ -101,6 +101,43 @@ public class LameBrain implements Brain {
 
 
     */
+
+
+    public int countHolesByEriksDefinition(Board board){
+        final int width = board.getWidth();
+        int holes = 0;
+        for (int col = 0; col < width; col++){
+            //edge cases are col == 0 and col == width - 1
+            final int colHeight = board.getColumnHeight(col); //this getColumnHeight(x) function returns 1+y value of the column
+            int leftColHeight = 0;
+            int rightColHeight = 0;
+            if (col > 0){
+                leftColHeight = board.getColumnHeight(col-1);
+            }
+            if (col < width - 1){
+                rightColHeight = board.getColumnHeight(col+1);
+            }
+
+            int heighestColOfThree = Math.max(leftColHeight, Math.max(colHeight, rightColHeight));
+            int y = heighestColOfThree - 1; // addr of first possible hole is the y value of the highest column.
+
+            while (y>=0) {
+                if  (!board.getGrid(col,y)) {
+                    holes++; // This space is empty and less than the height of this column
+                    if (y <= leftColHeight){
+                        holes++; //count another if at same height or less than left
+                    }
+                    if (y <= rightColHeight){
+                        holes++; //count another if ath the same height or less than right
+                    }
+                }
+                y--;
+            }
+        }
+        return holes;
+    }
+
+
     public double rateBoard(Board board) {
         final int width = board.getWidth();
         final int maxHeight = board.getMaxHeight();
@@ -108,12 +145,13 @@ public class LameBrain implements Brain {
         int sumHeight = 0;
         int holes = 0;
       
+        
         // Count the holes, and sum up the heights
         for (int x=0; x<width; x++) {
             final int colHeight = board.getColumnHeight(x);
             sumHeight += colHeight;
        
-            int y = colHeight - 2; // addr of first possible hole
+            /*int y = colHeight - 2; // addr of first possible hole
 
             while (y>=0) {
                 if  (!board.getGrid(x,y)) {
@@ -121,7 +159,9 @@ public class LameBrain implements Brain {
                 }
                 y--;
             }
+            */
         }
+        holes = countHolesByEriksDefinition(board);
       
         double avgHeight = ((double)sumHeight)/width;
       
