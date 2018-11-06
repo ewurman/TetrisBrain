@@ -102,6 +102,40 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
 
     */
 
+    /*
+    Blockade: a hole that is covered above
+
+    Idea: at each column, see if there's any holes below the max block
+
+    Returns: number of columns with a blockade (not all blockades)
+
+    Improvements: 
+    */
+    public int BlockadesBySinasDefinition(Board board){
+        final int width = board.getWidth();
+        int blockades = 0; //total number of blockades
+        for (int col = 0; col<width; col++){
+            boolean blockadeFlag = false; // boolean flag if a blockade is found in a column
+            int y = board.getColumnHeight(col);
+
+            if (y>0){ //ensure that you're not saying that an empty column has a blockade 
+                while(y<=0){
+                    if (!board.getGrid(col,y) && !blockadeFlag){ // if hole and false flag
+                        blockadeFlag = true;
+                        blockades++;
+                    }
+                    if (!board.getGrid(col,y) && !blockadeFlag){ // if hole and true flag
+                        // nothing
+                    }
+                    if (board.getGrid(col,y) && blockadeFlag){ // if not hole and true flag
+                        blockadeFlag = false;
+                    }
+                    y--;
+                }
+            }
+        }
+        return blockades
+    }
 
     public int countHolesByEriksDefinition(Board board){
         final int width = board.getWidth();
