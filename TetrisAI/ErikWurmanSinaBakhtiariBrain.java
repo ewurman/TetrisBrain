@@ -78,6 +78,7 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
     See Tetris-Architecture.html for brain ideas.
 
     Here are some features that hurt the board:
+    - The number of blocks in the board (score increases when you fill a row)
     - The Max height
     - The average height
     - The difference in the range of column hights
@@ -101,6 +102,7 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
 
 
     */
+
 
     /*
     Blockade: a hole that is covered above
@@ -137,6 +139,37 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
         return blockades
     }
 
+    public int heightRange(Board board){
+        final int width = board.getWidth();
+        int maxHeight = board.getMaxHeight();
+        int minHeight = board.getMaxHeight();
+        for (int col = 0; col < width; col++){
+            final int colHeight = board.getColumnHeight(col);
+            if (colHeight < minHeight){
+                minHeight = colHeight;
+            }
+        }
+        return maxHeight - minHeight;
+    }
+
+    public int countBlocks(Board board){
+        final int width = board.getWidth();
+        int blocks = 0;
+        for (int x = 0; x < width; x++){
+            final int colHeight = board.getColumnHeight(x);
+            int y = colHeight;
+            while (y>=0) {
+                if  (board.getGrid(x,y)) {
+                    blocks++;
+                }
+                y--;
+            }
+        }
+        return blocks;
+    }
+
+
+
     public int countHolesByEriksDefinition(Board board){
         final int width = board.getWidth();
         int holes = 0;
@@ -157,7 +190,7 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
 
             while (y>=0) {
                 if  (!board.getGrid(col,y)) {
-                    holes++; // This space is empty and less than the height of this column
+                    holes+=2; // This space is empty and less than the height of this column, count doubly
                     if (y <= leftColHeight){
                         holes++; //count another if at same height or less than left
                     }
@@ -196,12 +229,13 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
             */
         }
         holes = countHolesByEriksDefinition(board);
-      
+        int blocks = countBlocks(board);
+        int heightRange = heightRange(board);
         double avgHeight = ((double)sumHeight)/width;
       
         // Add up the counts to make an overall score
         // The weights, 8, 40, etc., are just made up numbers that appear to work
-        return (8*maxHeight + 40*avgHeight + 1.25*holes); 
+        return (4*maxHeight + 40*avgHeight + 2*heightRange + 1.5*holes + blocks); 
     }
 
 
