@@ -36,7 +36,16 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
     private double ah;
 
 
-    
+    public ErikWurmanSinaBakhtiariBrain(){
+
+        mh = .4;
+        tw = -3.4;
+        h = 0.5;
+        r = 4.4;
+        ah = 23.8;
+    }
+
+
     public ErikWurmanSinaBakhtiariBrain(double maxHeight, double touchingWall, double holes, double roughness, double aggregateHeight){
 
         mh = maxHeight;
@@ -167,7 +176,8 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
 
         final int max = board.getMaxHeight();        
         int holes = holes(board);
-        int roughness = roughness(board);
+        //int roughness = roughness(board);
+        int roughness = surfaceArea(board);
         int height = aggregateHeight(board);
         int touching = touchingWall(board);
 
@@ -216,6 +226,90 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
     */
 
 
+public int surfaceArea(Board board){
+        // Calculate the surface area of touching the top open area
+        // right now doesn't recurse into caves below itself.
+        final int width = board.getWidth();
+        int sa = 0;
+        for (int col = 0; col<width; col++){
+            int curr = board.getColumnHeight(col)-1;
+            // stop when less than left and right heights
+
+            if (col == 0) {
+                int next = board.getColumnHeight(col+1);
+                sa += Math.max(curr-next, 0) + 1; // one is straight up
+            }
+            else if (col == width - 1) {
+                int last = board.getColumnHeight(col-1);
+                sa += Math.max(curr-last, 0) + 1; // one is straight up
+            }
+            else {
+                int next = board.getColumnHeight(col+1);
+                int last = board.getColumnHeight(col-1);
+
+                sa += Math.max(Math.max(curr-next, curr-last), 0) + 1;
+            }
+        }
+        return sa;
+    }
+
+
+
+
+
+/*
+    public int surfaceArea(Board board){
+        // Calculate the surface area of touching the top open area
+        // right now doesn't recurse into caves below itself.
+        final int width = board.getWidth();
+        int x = 0;
+        int y = board.getColumnHeight(x);
+        int sa = 0;
+        while (x != width - 1 && y != board.getColumnHeight(width - 1)){
+            if (!board.getGrid(x,y)){
+                y--;
+                continue;
+            }
+            if (y==0){
+                x++;
+                y = board.getColumnHeight(x);
+                continue;
+            }
+            int next_x = x;
+            int next_y = y;
+            int up_y = y+1;
+            int right_x = x+1;
+            int left_x = x-1;
+            int down_y = y-1;
+            boolean totally_enclosed = true;
+            //getGrid outside board always true
+            if (!board.getGrid(x,up_y)){
+                sa++;
+                totally_enclosed = false;
+            }
+            if(!board.getGrid(right_x,y)){
+                sa++;
+                totally_enclosed = false;
+            }
+            if(!board.getGrid(left_x,y)){
+                sa++;
+                totally_enclosed = false;
+            }
+            //Now move down or start on next column
+            if (!totally_enclosed){
+                next_y--;
+            }
+            else {
+                next_x++;
+                next_y = board.getColumnHeight(next_x);
+            }
+            x = next_x;
+            y = next_y;
+
+        }
+        return sa;
+    }
+*/
 
 
 
@@ -229,12 +323,7 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
 
 
 
-
-
-
-
-
-
+// Old features we decided not to use
 //---------------------------------------------------------------------------------------------------------------------------------------
 
 
