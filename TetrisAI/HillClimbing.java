@@ -11,6 +11,7 @@ to play each game.
 
 */
 
+
 import java.lang.Math;
 
 public class HillClimbing {
@@ -22,7 +23,7 @@ public class HillClimbing {
 		int[] weights = [maxHeight, heightRange, holes, roughness, blockades];
 		for (int i; i<n; i++){
 
-			int current_score = 0;
+			int current_score = ;
 			
 
 			double increment = Math.random() - 0.5; //range of [-0.5, 0.5)
