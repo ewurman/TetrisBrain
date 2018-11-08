@@ -46,6 +46,7 @@ implements Brain {
         myOpponent = this; //new Sith(false);
     }
 
+    /*
     public JBrainNoGraphics(int w, int h) {
         super(w, h);
         brainActive = true;
@@ -55,7 +56,7 @@ implements Brain {
         drop = true;
         myOpponent = this; //new Sith(false);
     }
-
+    */
 
 
     public static final int ROTATE = 0;
@@ -254,10 +255,12 @@ implements Brain {
         gameOn = true;
         gamePieces = 0;
 
-        if (testMode) 
+        if (testMode) {
             random = new Random(0); // same seq every time
-        else 
+        }
+        else {
             random = new Random(); // diff seq each game
+        }
 
         addNewPiece();
  

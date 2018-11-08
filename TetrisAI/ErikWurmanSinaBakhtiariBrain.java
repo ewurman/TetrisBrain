@@ -134,8 +134,8 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
         final int width = board.getWidth();
         int holes = 0;
         for (int col=0; col<width; col++){
-            int row = board.getColumnHeight(col) -2;
-            while (row>=0){
+            int row = board.getColumnHeight(col) - 2;
+            while (row>0){
                 if (!board.getGrid(col,row)){
                     holes += 1;
                 }
@@ -246,7 +246,6 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
 
 
     public double rateBoard(Board board) {
-        System.out.println("In Rate Board");
         final int width = board.getWidth();
         final int maxHeight = board.getMaxHeight();
       

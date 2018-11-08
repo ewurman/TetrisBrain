@@ -319,10 +319,7 @@ public class JTetrisTrain extends JComponent {
     installs the JTetris or JBrainTetris,
     checks the testMode state,
      */
-    public static void main(String[] args)
-
-    {
-
+    public static void main(String[] args) {
 
         // Could create a JTetris or JBrainTetris here
         final int pixels = 16;
@@ -338,7 +335,7 @@ public class JTetrisTrain extends JComponent {
         int totalPieces = 0;
         for (int i = 0; i < trials; i++) {
             tetris.startGame();
-            //System.out.println(tetris.getPieces());
+            System.out.println(tetris.getPieces());
             totalPieces += tetris.getPieces();
         }
         System.out.println("Average number of pieces: "+(totalPieces/trials));
