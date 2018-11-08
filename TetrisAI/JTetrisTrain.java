@@ -324,8 +324,10 @@ public class JTetrisTrain extends JComponent {
         // Could create a JTetris or JBrainTetris here
         final int pixels = 16;
         final int trials = 100;
+
+        //paramaters in order: maxHeight, touchingWall, holes, roughness, aggregateHeight
         JBrainNoGraphics tetris = new JBrainNoGraphics(WIDTH*pixels+2, (HEIGHT+TOP_SPACE)*pixels+2, Double.parseDouble(args[0]), 
-            Double.parseDouble(args[1]), Double.parseDouble(args[2]), Double.parseDouble(args[3]));
+            Double.parseDouble(args[1]), Double.parseDouble(args[2]), Double.parseDouble(args[3]), Double.parseDouble(args[4]));
 
         if (args.length != 0 && args[0].equals("test")) {
             tetris.testMode = true;

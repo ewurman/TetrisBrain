@@ -1,4 +1,13 @@
 /*
+Features to add (maybe):
+
+    surface area instead of roughness
+    It's good if a block is touching either wall or the floor
+
+
+
+
+
  A simple Brain implementation.
  bestMove() iterates through all the possible x values
  and rotations to play a particular piece (there are only
@@ -19,19 +28,22 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
     the best play for that piece, or returns null if no play is possible.
     See the Brain interface for details.
     */
-    private double mh = 5;
-    //private double hr;
-    private double h = 20;
-    private double r = 3;
-    private double b = 0;
+
+    private double mh;
+    private double tw;
+    private double h; 
+    private double r; 
+    private double ah;
+
 
     
-    public ErikWurmanSinaBakhtiariBrain(double maxHeight, double holes, double roughness, double blockades){
+    public ErikWurmanSinaBakhtiariBrain(double maxHeight, double touchingWall, double holes, double roughness, double aggregateHeight){
+
         mh = maxHeight;
+        tw = touchingWall;
         h = holes;
         r = roughness;
-        b = blockades;
-        //System.out.println("In the ErikWurmanSinaBakhtiariBrain constructor");
+        ah = aggregateHeight;
     }
     
 
@@ -85,6 +97,89 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
             return(move);
         }
     }
+
+    /*
+    Counts the number of pieces touching both the walls.
+    */
+    public int touchingWall(Board board){
+        final int width = board.getWidth();
+        final int max = board.getMaxHeight();
+        int touching = 0;
+        for (int col = 0; col<width; col++){
+            if (col == 0 || col == (width-1)){
+                for (int i=0; i<max; i++){
+                    if (board.getGrid(col, i)){
+                        touching++;
+                    }
+                }
+            }
+        }
+        return touching;
+    }
+
+    /*
+    Sums the total of the absolute values of adjacent columns
+    */
+    public int roughness(Board board){
+        final int width = board.getWidth();
+        int roughness = 0;
+        for (int col = 0; col<width-1; col++){
+            int curr = board.getColumnHeight(col);
+            int next = board.getColumnHeight(col+1);
+            roughness += Math.abs(curr-next);
+        }
+        return roughness;
+    }
+
+    /*
+    Counts the total number of holes on the board
+    */
+    public int holes(Board board){
+        final int width = board.getWidth();
+        int holes = 0;
+        for (int col=0; col<width; col++){
+            int row = board.getColumnHeight(col) - 2;
+            while (row>=0){
+                if (!board.getGrid(col,row)){
+                    holes += 1; //maybe make this 2
+                }
+                row--;
+            }
+        }
+        return holes;
+    }
+
+    /*
+    Total height of all the columns on the board
+    */
+    public int aggregateHeight(Board board){
+        final int width = board.getWidth();
+        int height = 0;
+        for (int col=0; col<width; col++){
+            height += board.getColumnHeight(col);
+        }
+        return height;
+    }
+
+
+    public double rateBoard(Board board) {
+        final int width = board.getWidth();
+
+        final int max = board.getMaxHeight();        
+        int holes = holes(board);
+        int roughness = roughness(board);
+        int height = aggregateHeight(board);
+        int touching = touchingWall(board);
+
+        //int holes = countHolesByEriksDefinition(board);
+        //int blockades = BlockadesBySinasDefinition(board);
+        //int blocks = countBlocks(board);
+        //double avgHeight = ((double)sumHeight)/width;
+        //int heightRange = heightRange(board);
+      
+        // Add up the counts to make an overall score
+        return (mh*max + tw*touching + h*holes + r*roughness + ah*height); 
+    }
  
  
     /*
@@ -118,35 +213,62 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
               XXX                             X  
               X_X   Would count as 3 whereas  X_X  would count as 2
               XXX                             XXX
-
-
     */
-    public int Roughness(Board board){
-        final int width = board.getWidth();
-        int roughness = 0;
-        for (int col = 0; col<width-1; col++){
-            int curr = board.getColumnHeight(col);
-            int next = board.getColumnHeight(col+1);
-            roughness += Math.abs(curr-next);
-        }
-        return roughness;
-    }
 
-    public int holes(Board board){
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//---------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public int heightRange(Board board){
         final int width = board.getWidth();
-        int holes = 0;
-        for (int col=0; col<width; col++){
-            int row = board.getColumnHeight(col) - 2;
-            while (row>0){
-                if (!board.getGrid(col,row)){
-                    holes += 1; //maybe make this 2
-                }
-                row--;
+        int maxHeight = board.getMaxHeight();
+        int minHeight = board.getMaxHeight();
+        for (int col = 0; col < width; col++){
+            final int colHeight = board.getColumnHeight(col);
+            if (colHeight < minHeight){
+                minHeight = colHeight;
             }
         }
-        return holes;
+        return maxHeight - minHeight;
     }
-
 
     /*
     Blockade: a hole that is covered above
@@ -157,7 +279,7 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
 
     Improvements: 
     */
-    public int BlockadesBySinasDefinition(Board board){
+    public int blockadesBySinasDefinition(Board board){
         final int width = board.getWidth();
         int blockades = 0; //total number of blockades
         for (int col = 0; col<width; col++){
@@ -181,19 +303,6 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
             }
         }
         return blockades;
-    }
-
-    public int heightRange(Board board){
-        final int width = board.getWidth();
-        int maxHeight = board.getMaxHeight();
-        int minHeight = board.getMaxHeight();
-        for (int col = 0; col < width; col++){
-            final int colHeight = board.getColumnHeight(col);
-            if (colHeight < minHeight){
-                minHeight = colHeight;
-            }
-        }
-        return maxHeight - minHeight;
     }
 
     public int countBlocks(Board board){
@@ -245,36 +354,6 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
         }
         return holes;
     }
-
-
-    public double rateBoard(Board board) {
-
-        final int width = board.getWidth();
-        final int maxHeight = board.getMaxHeight();
-      
-        int sumHeight = 0;
-        
-        // Count the holes, and sum up the heights
-        for (int x=0; x<width; x++) {
-            final int colHeight = board.getColumnHeight(x);
-            sumHeight += colHeight;
-       
-        }
-        //int holes = holes(board);
-        int holes = countHolesByEriksDefinition(board);
-        //int blockades = BlockadesBySinasDefinition(board);
-        int roughness = Roughness(board);
-
-
-        //int blocks = countBlocks(board);
-        //int heightRange = heightRange(board);
-        //double avgHeight = ((double)sumHeight)/width;
-      
-        // Add up the counts to make an overall score
-        // The weights, 8, 40, etc., are just made up numbers that appear to work
-        return (mh*maxHeight + h*holes + r*roughness); 
-    }
-
 
 
 
