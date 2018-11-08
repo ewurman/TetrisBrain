@@ -18,9 +18,9 @@ import java.lang.Math;
 public class HillClimbing {
 	double exploration_constant_percent = 0.99; // a percentage of the current score instead below that we can explorwith
 	int n = 100;
-	int trials = 100;
+	int trials = 50;
 
-	public void SoftStochasticSearch(double maxHeight, double holes, double roughness, double blockades){
+	public double[] SoftStochasticSearch(double maxHeight, double holes, double roughness, double blockades){
 
 		double score_for_current_weights = 0;
 		for (int i = 0; i<n; i++){
@@ -73,13 +73,35 @@ public class HillClimbing {
 			System.out.println(results[i]);
 		}
 		System.out.println("Score with these weights:" + score_for_current_weights);
+		double[] allResults = {results[0], results[1], results[2], results[3], score_for_current_weights};
+		return allResults;
 	}
 
 	public static void main(String[] args) {
 		HillClimbing hillClimber = new HillClimbing();
+		int numRandomRestarts = 25;
 		//hillClimber.SoftStochasticSearch(Double.parseDouble(args[0]), Double.parseDouble(args[1]), Double.parseDouble(args[2]), Double.parseDouble(args[3]), Double.parseDouble(args[4]));
-		//(Math.random() * weights.length);
-
+		double[] best_weights = {0,0,0,0};
+		double bestVal = 0;
+		double[] rand_weights = {0,0,0,0};
+		for (int j = 0; j < numRandomRestarts; j++){
+			for (int i = 0; i < rand_weights.length; i++){
+				double weight = Math.random() * 50; //give a random weight 0 to 50
+				rand_weights[i] = weight;
+			}
+			double[] weightsFoundAndValue = hillClimber.SoftStochasticSearch(rand_weights[0], rand_weights[1], rand_weights[2], rand_weights[3]);
+			if (weightsFoundAndValue[best_weights.length] > bestVal){
+				for (int i = 0; i < best_weights.length; i++){
+					best_weights[i] = weightsFoundAndValue[i];
+				}
+				bestVal = weightsFoundAndValue[best_weights.length];
+			}
+			System.out.println("Finished Restart " + j);
+		}
+		System.out.println("Best Weights found:");
+		for (int j = 0; j < best_weights.length; j++){
+			System.out.println(best_weights[j]);
+		}
 	}
 
 }
