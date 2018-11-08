@@ -2,7 +2,7 @@
 Features to add (maybe):
 
     surface area instead of roughness
-    It's good if a block is touching either wall or the floor
+    It's good if a block is touching the floor
 
 
 

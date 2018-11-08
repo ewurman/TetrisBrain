@@ -17,11 +17,11 @@ import java.util.Random;
 //import JBrainNoGraphics.*;
 
 public class HillClimbing {
-	double exploration_constant_percent = .975; // a percentage of the current score instead below that we can explorwith
-	double min = -1.5;
-	double max = 1.5;
-	int n = 150;
-	int trials = 20;
+	double exploration_constant_percent = .925; // a percentage of the current score instead below that we can explorwith
+	double min = -.4;
+	double max = .4;
+	int n = 150; //number of iterations
+	int trials = 15;
 
 	public double[] SoftStochasticSearch(double maxHeight, double touchingWall, double holes, double roughness, double aggregateHeight){
 
@@ -46,7 +46,7 @@ public class HillClimbing {
 
 			Random rand = new Random();
 			double increment = min + (max-min) * rand.nextDouble();
-			int sample = rand.nextInt(weights.length);
+			int sample = rand.nextInt(weights.length -1) +1;
 			weights[sample] += increment; //searching random direction a bit
 
 			double average = 0.0;
