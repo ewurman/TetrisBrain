@@ -201,7 +201,7 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
 
             while (y>=0) {
                 if  (!board.getGrid(col,y)) {
-                    holes+=2; // This space is empty and less than the height of this column, count doubly
+                    holes++; // This space is empty and less than the height of this column, count doubly
                     if (y <= leftColHeight){
                         holes++; //count another if at same height or less than left
                     }
