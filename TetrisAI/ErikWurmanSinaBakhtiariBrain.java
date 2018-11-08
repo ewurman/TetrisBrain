@@ -18,6 +18,13 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
     See the Brain interface for details.
     */
 
+    public ErikWurmanSinaBakhtiariBrain(double maxHeight, double heightRange, double holes, double roughness, double blockades){
+        mh = maxHeight;
+        hr = heightRange;
+        h = holes;
+        r = roughness;
+        b = blockades;
+    }
 
     public Brain.Move bestMove(Board board, Piece piece, int limitHeight, Brain.Move move) {
         // Allocate a move object if necessary
@@ -241,7 +248,7 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
       
         // Add up the counts to make an overall score
         // The weights, 8, 40, etc., are just made up numbers that appear to work
-        return (6*maxHeight + 5*avgHeight + 2*heightRange + 2*blocks + 12*holes + 10*roughness + 15*blockades); 
+        return (mh*maxHeight + hr*heightRange + h*holes + r*roughness + b*blockades); 
     }
 
 
