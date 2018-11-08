@@ -16,28 +16,34 @@ import java.lang.Math;
 //import JBrainNoGraphics.*;
 
 public class HillClimbing {
-	double exploration_constant_percent = 0.99; // a percentage of the current score instead below that we can explorwith
+	double exploration_constant_percent = 1; // a percentage of the current score instead below that we can explorwith
+	double stepSizeRange = 2; 
 	int n = 100;
-	int trials = 50;
+	int trials = 10;
 
 	public double[] SoftStochasticSearch(double maxHeight, double holes, double roughness, double blockades){
 
+		System.out.println("Entered SoftStochasticSearch");
 		double score_for_current_weights = 0;
 		for (int i = 0; i<n; i++){
 
 			double[] weights = {maxHeight, holes, roughness, blockades};
 			JBrainNoGraphics game = new JBrainNoGraphics(20,10, maxHeight, holes, roughness, blockades);
-			double score_with_current_weights = 0;
-
-			for (int j = 0; j < trials; j++){
-				game.startGame();
-				int score = game.getPieces(); //score of a game with weights from the array with changed weight
-				game.stopGame();
-				score_with_current_weights += ((double) score )/ trials;
+			//double score_with_current_weights = 0;
+			/*
+			if (i == 0){
+				for (int j = 0; j < trials; j++){
+					game.startGame();
+					int score = game.getPieces(); //score of a game with weights from the array with changed weight
+					game.stopGame();
+					score_for_current_weights += ((double) score )/ trials;
+				}
 			}
+			*/
+			System.out.println("Score: " + score_for_current_weights);
 
 
-			double increment = Math.random() - 0.5; //range of [-0.5, 0.5)
+			double increment = Math.random()*stepSizeRange - 0.5; //range of [-1, 1)
 			int sample = (int)(Math.random() * weights.length);
 
 			weights[sample] = Math.max(0, weights[sample] + increment); //searching random direction a bit
@@ -51,9 +57,10 @@ public class HillClimbing {
 				game2.stopGame();
 				average += ((double) score )/ trials;
 			}
+			System.out.println("Average: " + average);
 
 
-			if (average > (score_with_current_weights * exploration_constant_percent)){
+			if (average > (score_for_current_weights * exploration_constant_percent)){
 				maxHeight = weights[0];
 				holes = weights[1];
 				roughness = weights[2];
@@ -62,7 +69,7 @@ public class HillClimbing {
 			}
 
 
-			if (i != 0 && i%10 == 0){
+			if (i != 0 || i%10 == 0){
 				System.out.println("Finished Iteration " + i);
 			}
 
@@ -79,28 +86,36 @@ public class HillClimbing {
 
 	public static void main(String[] args) {
 		HillClimbing hillClimber = new HillClimbing();
-		int numRandomRestarts = 25;
-		//hillClimber.SoftStochasticSearch(Double.parseDouble(args[0]), Double.parseDouble(args[1]), Double.parseDouble(args[2]), Double.parseDouble(args[3]), Double.parseDouble(args[4]));
-		double[] best_weights = {0,0,0,0};
-		double bestVal = 0;
-		double[] rand_weights = {0,0,0,0};
-		for (int j = 0; j < numRandomRestarts; j++){
-			for (int i = 0; i < rand_weights.length; i++){
-				double weight = Math.random() * 50; //give a random weight 0 to 50
-				rand_weights[i] = weight;
-			}
-			double[] weightsFoundAndValue = hillClimber.SoftStochasticSearch(rand_weights[0], rand_weights[1], rand_weights[2], rand_weights[3]);
-			if (weightsFoundAndValue[best_weights.length] > bestVal){
-				for (int i = 0; i < best_weights.length; i++){
-					best_weights[i] = weightsFoundAndValue[i];
-				}
-				bestVal = weightsFoundAndValue[best_weights.length];
-			}
-			System.out.println("Finished Restart " + j);
+
+
+		if (args.length != 0){
+			System.out.println("Calling single hill climbing");
+			hillClimber.SoftStochasticSearch(Double.parseDouble(args[0]), Double.parseDouble(args[1]), Double.parseDouble(args[2]), Double.parseDouble(args[3]));
 		}
-		System.out.println("Best Weights found:");
-		for (int j = 0; j < best_weights.length; j++){
-			System.out.println(best_weights[j]);
+		else {
+			int numRandomRestarts = 25;
+			//hillClimber.SoftStochasticSearch(Double.parseDouble(args[0]), Double.parseDouble(args[1]), Double.parseDouble(args[2]), Double.parseDouble(args[3]), Double.parseDouble(args[4]));
+			double[] best_weights = {0,0,0,0};
+			double bestVal = 0;
+			double[] rand_weights = {0,0,0,0};
+			for (int j = 0; j < numRandomRestarts; j++){
+				for (int i = 0; i < rand_weights.length; i++){
+					double weight = Math.random() * 50; //give a random weight 0 to 50
+					rand_weights[i] = weight;
+				}
+				double[] weightsFoundAndValue = hillClimber.SoftStochasticSearch(rand_weights[0], rand_weights[1], rand_weights[2], rand_weights[3]);
+				if (weightsFoundAndValue[best_weights.length] > bestVal){
+					for (int i = 0; i < best_weights.length; i++){
+						best_weights[i] = weightsFoundAndValue[i];
+					}
+					bestVal = weightsFoundAndValue[best_weights.length];
+				}
+				System.out.println("Finished Restart " + j);
+			}
+			System.out.println("Best Weights found:");
+			for (int j = 0; j < best_weights.length; j++){
+				System.out.println(best_weights[j]);
+			}
 		}
 	}
 
