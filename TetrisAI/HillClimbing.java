@@ -20,12 +20,14 @@ public class HillClimbing {
 	double exploration_constant_percent = .975; // a percentage of the current score instead below that we can explorwith
 	double min = -1.5;
 	double max = 1.5;
-	int n = 150;
+	int n = 200;
 	int trials = 20;
+	int trialsBeforeRandomJump = 25;
 
 	public double[] SoftStochasticSearch(double maxHeight, double touchingWall, double holes, double roughness, double aggregateHeight){
 
 		double score_for_current_weights = 0;
+		double[] best_weights = {maxHeight, touchingWall, holes, roughness, aggregateHeight};
 
 		for (int i = 0; i<n; i++){
 			double[] weights = {maxHeight, touchingWall, holes, roughness, aggregateHeight};
@@ -71,15 +73,25 @@ public class HillClimbing {
 				score_for_current_weights = average;
 				for (int j = 0; j < weights.length; j++){
 					System.out.println(weights[j]);
+					best_weights[j] = weights[j];
 				}
 			}
 
 
-			if (i != 0 || i%10 == 0){
-				System.out.println("Finished Iteration " + i);
-				System.out.println();
-				System.out.println();
+			System.out.println("Finished Iteration " + i);
+			System.out.println();
+			System.out.println();
+			
+
+			if (i != 0 && i%trialsBeforeRandomJump == 0){ 
+				// NOW we random jump around
+				for (int j = 0; j < weights.length; j++){
+					increment = min + (max-min) * rand.nextDouble();
+					weights[j] += increment;
+				}
+
 			}
+
 		}
 
 		double[] results = {maxHeight, touchingWall, holes, roughness, aggregateHeight}; //final weights
@@ -108,7 +120,7 @@ public class HillClimbing {
 			double[] rand_weights = {0,0,0,0,0};
 			for (int j = 0; j < numRandomRestarts; j++){
 				for (int i = 0; i < rand_weights.length; i++){
-					double weight = Math.random() * 50; //give a random weight 0 to 50
+					double weight = Math.random() * 30; //give a random weight 0 to 50
 					rand_weights[i] = weight;
 				}
 				double[] weightsFoundAndValue = hillClimber.SoftStochasticSearch(rand_weights[0], rand_weights[1], rand_weights[2], rand_weights[3], rand_weights[4]);

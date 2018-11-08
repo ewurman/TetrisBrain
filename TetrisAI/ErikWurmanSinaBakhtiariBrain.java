@@ -176,8 +176,8 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
 
         final int max = board.getMaxHeight();        
         int holes = holes(board);
-        //int roughness = roughness(board);
-        int roughness = surfaceArea(board);
+        int roughness = roughness(board);
+        //int roughness = surfaceArea(board);
         int height = aggregateHeight(board);
         int touching = touchingWall(board);
 
@@ -257,67 +257,6 @@ public int surfaceArea(Board board){
 
 
 
-/*
-    public int surfaceArea(Board board){
-        // Calculate the surface area of touching the top open area
-        // right now doesn't recurse into caves below itself.
-        final int width = board.getWidth();
-        int x = 0;
-        int y = board.getColumnHeight(x);
-        int sa = 0;
-        while (x != width - 1 && y != board.getColumnHeight(width - 1)){
-            if (!board.getGrid(x,y)){
-                y--;
-                continue;
-            }
-            if (y==0){
-                x++;
-                y = board.getColumnHeight(x);
-                continue;
-            }
-            int next_x = x;
-            int next_y = y;
-            int up_y = y+1;
-            int right_x = x+1;
-            int left_x = x-1;
-            int down_y = y-1;
-            boolean totally_enclosed = true;
-            //getGrid outside board always true
-            if (!board.getGrid(x,up_y)){
-                sa++;
-                totally_enclosed = false;
-            }
-            if(!board.getGrid(right_x,y)){
-                sa++;
-                totally_enclosed = false;
-            }
-            if(!board.getGrid(left_x,y)){
-                sa++;
-                totally_enclosed = false;
-            }
-            //Now move down or start on next column
-            if (!totally_enclosed){
-                next_y--;
-            }
-            else {
-                next_x++;
-                next_y = board.getColumnHeight(next_x);
-            }
-            x = next_x;
-            y = next_y;
-
-        }
-        return sa;
-    }
-*/
-
-
-
-
-
-
-
-
 
 
 
@@ -325,24 +264,6 @@ public int surfaceArea(Board board){
 
 // Old features we decided not to use
 //---------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -426,7 +347,7 @@ public int surfaceArea(Board board){
             }
 
             int heighestColOfThree = Math.max(leftColHeight, Math.max(colHeight, rightColHeight));
-            int y = heighestColOfThree - 1; // addr of first possible hole is the y value of the highest column.
+            int y = heighestColOfThree - 2; // addr of first possible hole is the y value of the highest column.
 
             while (y>=0) {
                 if  (!board.getGrid(col,y)) {
