@@ -136,7 +136,7 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
             int row = board.getColumnHeight(col) -2;
             while (row>=0){
                 if (!board.getGrid(col,row)){
-                    holes += 1;
+                    holes += 1; //maybe make this 2
                 }
                 else{
                     row--;

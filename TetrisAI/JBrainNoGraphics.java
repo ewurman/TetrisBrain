@@ -1,4 +1,4 @@
-/*
+/**
 A simple Brain implementation.
 bestMove() iterates through all the possible x values
 and rotations to play a particular piece (there are only
@@ -36,6 +36,7 @@ implements Brain {
     public final int MAXGAMES = 10000;
     public final boolean OPTIMIZING = true;
 
+
     public JBrainNoGraphics(int w, int h, double maxHeight, double holes, double roughness, double blockades) {
         super(w, h);
         brainActive = true;
@@ -64,7 +65,7 @@ implements Brain {
     public static final int DROP = 3;
     public static final int DOWN = 4;
 
-    /*
+    /**
     Called to change the position of the current piece.
     Each key press call this once with the verbs
     LEFT RIGHT ROTATE DROP for the user moves,
@@ -177,7 +178,7 @@ implements Brain {
         moved = (!failed && verb!=DOWN);
     }
 
-    /*
+    /**
     Selects the next piece to use using the random generator
     set in startGame().  Updated to check on adversary
      */
@@ -229,7 +230,7 @@ implements Brain {
         opponent = newValue;
     }
 
-    /*
+    /**
     Stops the game.
      */
     public void stopGame() {
@@ -242,7 +243,7 @@ implements Brain {
         gamesPlayed++;
     }
     
-        /*
+        /**
     Sets the internal state and starts the timer
     so the game is happening.
      */
@@ -272,7 +273,7 @@ implements Brain {
     }
 
 
-    /*
+    /**
     Given a piece and a board, returns a move object that represents
     the best play for that piece, or returns null if no play is possible.
     See the Brain interface for details.
