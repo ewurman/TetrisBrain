@@ -11,12 +11,19 @@
  brain -- just subclass off LameBrain and override rateBoard().
 */
 
+import java.lang.Math;
+
 public class ErikWurmanSinaBakhtiariBrain implements Brain {
     /*
     Given a piece and a board, returns a move object that represents
     the best play for that piece, or returns null if no play is possible.
     See the Brain interface for details.
     */
+    private double mh;
+    private double hr;
+    private double h;
+    private double b;
+    private double r;
 
     public ErikWurmanSinaBakhtiariBrain(double maxHeight, double heightRange, double holes, double roughness, double blockades){
         mh = maxHeight;
@@ -112,13 +119,13 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
 
 
     */
-    public int Roughness(){
+    public int Roughness(Board board){
         final int width = board.getWidth();
         int roughness = 0;
-        for (int col; col<width-1; col++){
+        for (int col = 0; col<width-1; col++){
             int curr = board.getColumnHeight(col);
             int next = board.getColumnHeight(col+1);
-            roughness += abs(curr-next);
+            roughness += Math.abs(curr-next);
         }
         return roughness;
     }
@@ -228,8 +235,6 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
         final int maxHeight = board.getMaxHeight();
       
         int sumHeight = 0;
-        int holes = 0;
-      
         
         // Count the holes, and sum up the heights
         for (int x=0; x<width; x++) {

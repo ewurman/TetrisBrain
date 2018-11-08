@@ -46,6 +46,16 @@ implements Brain {
         myOpponent = this; //new Sith(false);
     }
 
+    public JBrainNoGraphics(int w, int h) {
+        super(w, h);
+        brainActive = true;
+        previousCount = count;
+        brains = new JediMindTrick();
+        gamesPlayed = 0;
+        drop = true;
+        myOpponent = this; //new Sith(false);
+    }
+
 
 
     public static final int ROTATE = 0;
