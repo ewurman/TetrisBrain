@@ -20,7 +20,7 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
     See the Brain interface for details.
     */
     private double mh;
-    private double hr;
+    //private double hr;
     private double h;
     private double b;
     private double r;
@@ -30,6 +30,7 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
         h = holes;
         r = roughness;
         b = blockades;
+        System.out.println("In the ErikWurmanSinaBakhtiariBrain constructor");
     }
 
     public Brain.Move bestMove(Board board, Piece piece, int limitHeight, Brain.Move move) {
@@ -138,9 +139,7 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
                 if (!board.getGrid(col,row)){
                     holes += 1; //maybe make this 2
                 }
-                else{
-                    row--;
-                }
+                row--;
             }
         }
         return holes;
@@ -247,6 +246,7 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
 
 
     public double rateBoard(Board board) {
+        System.out.println("In Rate Board");
         final int width = board.getWidth();
         final int maxHeight = board.getMaxHeight();
       
@@ -259,17 +259,17 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
        
         }
         int holes = holes(board);
-        int blockades = BlockadesBySinasDefinition(board);
+        //int blockades = BlockadesBySinasDefinition(board);
         int roughness = Roughness(board);
 
 
-        int blocks = countBlocks(board);
+        //int blocks = countBlocks(board);
         //int heightRange = heightRange(board);
-        double avgHeight = ((double)sumHeight)/width;
+        //double avgHeight = ((double)sumHeight)/width;
       
         // Add up the counts to make an overall score
         // The weights, 8, 40, etc., are just made up numbers that appear to work
-        return (mh*maxHeight + h*holes + r*roughness + b*blockades); 
+        return (mh*maxHeight + h*holes + r*roughness); 
     }
 
 
