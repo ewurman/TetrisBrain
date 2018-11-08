@@ -17,11 +17,12 @@ import java.lang.Math;
 
 public class HillClimbing {
 	double exploration_constant_percent = 0.99; // a percentage of the current score instead below that we can explorwith
-	int n = 1000;
+	int n = 250;
 
 	public void SoftStochasticSearch(double maxHeight, double heightRange, double holes, double roughness, double blockades){
 
-		for (int i; i<n; i++){
+		double score_for_current_weights = 0;
+		for (int i = 0; i<n; i++){
 
 			double[] weights = {maxHeight, heightRange, holes, roughness, blockades};
 			JBrainNoGraphics game = new JBrainNoGraphics(20,10, maxHeight, heightRange, holes, roughness, blockades);
@@ -40,7 +41,7 @@ public class HillClimbing {
 			double increment = Math.random() - 0.5; //range of [-0.5, 0.5)
 			int sample = (int)(Math.random() * weights.length);
 
-			weights[sample] += increment; //searching random direction a bit
+			weights[sample] = Math.max(0, weights[sample] + increment); //searching random direction a bit
 
 
 			JBrainNoGraphics game2 = new JBrainNoGraphics(20,10, weights[0], weights[1], weights[2], weights[3], weights[4]);
@@ -62,13 +63,21 @@ public class HillClimbing {
 				holes = weights[2];
 				roughness = weights[3];
 				blockades = weights[4];
+				score_for_current_weights = average;
 			}
+
+
+			if (i != 0 && i%25 == 0){
+				System.out.println("Finished Iteration " + i);
+			}
+
 		}
 		double[] results = {maxHeight, heightRange, holes, roughness, blockades}; //final weights
 		// print final weights (i.e. results) anf final score
 		for (int i = 0; i < results.length; i++){
 			System.out.println(results[i]);
 		}
+		System.out.println("Score with these weights:" + score_for_current_weights);
 	}
 
 	public static void main(String[] args) {
