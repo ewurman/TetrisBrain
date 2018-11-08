@@ -17,12 +17,12 @@ public class HillClimbing {
 	int exploration_constant = 3; //Maybe do a percentage of the currect score instead?
 	int n = 1000;
 
-	public void SoftStochasticSearch(int maxHeight, int heightRange, int holes, int roughness, int blockades){
+	public void SoftStochasticSearch(double maxHeight, double heightRange, double holes, double roughness, double blockades){
 
 		int[] weights = [maxHeight, heightRange, holes, roughness, blockades];
 		for (int i; i<n; i++){
 
-			int current_score = 0;//TODO score of game with current
+			int current_score = 0;
 			
 
 			double increment = Math.random() - 0.5; //range of [-0.5, 0.5)
