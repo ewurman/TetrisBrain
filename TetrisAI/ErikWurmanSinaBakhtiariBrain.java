@@ -2,7 +2,7 @@
 Features to add (maybe):
 
     surface area instead of roughness
-    It's good if a block is touching either wall or the floor
+    It's good if a block is touching the floor
 
 
 
@@ -38,11 +38,11 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
 
     public ErikWurmanSinaBakhtiariBrain(){
 
-        mh = .4;
-        tw = -3.4;
-        h = 0.5;
-        r = 4.4;
-        ah = 23.8;
+        mh = .1;
+        tw = -1.5;
+        h = 2.8;
+        r = 2;
+        ah = 7.5;
     }
 
 
