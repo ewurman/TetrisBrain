@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.*;
 
 
-/**
+/*
  Represents a Tetris board -- essentially a 2-d grid
  of booleans. Supports tetris pieces and row clearning.
  Has an "undo" feature that allows clients to add and remove pieces efficiently.
@@ -36,7 +36,7 @@ public final class Board  {
     private static final int HEIGHT = 2;
     
     
-    /**
+    /*
      Creates an empty board of the given width and height
      measured in blocks.
     */
@@ -69,7 +69,7 @@ public final class Board  {
     }
     
     
-    /**
+    /*
      Returns the width of the board in blocks.
     */
     public int getWidth() {
@@ -77,7 +77,7 @@ public final class Board  {
     }
     
     
-    /**
+    /*
      Returns the height of the board in blocks.
     */
     public int getHeight() {
@@ -85,7 +85,7 @@ public final class Board  {
     }
     
     
-    /**
+    /*
      Returns the max column height present in the board.
      For an empty board this is 0.
     */
@@ -94,7 +94,7 @@ public final class Board  {
     }
     
     
-    /**
+    /*
      Checks the board for internal consistency -- used
      for debugging.
     */
@@ -123,7 +123,7 @@ public final class Board  {
         }
     }
     
-    /**
+    /*
      Given a piece and an x, returns the y
      value where the piece would come to rest
      if it were dropped straight down at that x.
@@ -144,7 +144,7 @@ public final class Board  {
     }
     
     
-    /**
+    /*
      Returns the height of the given column --
      i.e. the y value of the highest block + 1.
      The height is 0 if the column contains no blocks.
@@ -154,7 +154,7 @@ public final class Board  {
     }
     
     
-    /**
+    /*
      Returns the number of filled blocks in
      the given row.
     */
@@ -163,7 +163,7 @@ public final class Board  {
     }
     
     
-    /**
+    /*
      Returns true if the given block is filled in the board.
      Blocks outside of the valid width/height area
      always return true.
@@ -180,7 +180,7 @@ public final class Board  {
     public static final int PLACE_OUT_BOUNDS = 2;
     public static final int PLACE_BAD = 3;
     
-    /**
+    /*
      Attempts to add the body of a piece to the board.
      Copies the piece blocks into the board grid.
      Returns PLACE_OK for a regular placement, or PLACE_ROW_FILLED
@@ -236,7 +236,7 @@ public final class Board  {
         return PLACE_BAD;
     }
 
-    /**
+    /*
      Deletes rows that are filled all the way across, moving
      things above down. Returns true if any row clearing happened.
      
@@ -281,7 +281,7 @@ public final class Board  {
 
 
 
-    /**
+    /*
      If a place() happens, optionally followed by a clearRows(),
      a subsequent undo() reverts the board to its state before
      the place(). If the conditions for undo() are not met, such as
@@ -310,7 +310,7 @@ public final class Board  {
     }
     
     
-    /**
+    /*
      Puts the board in the committed state.
      See the overview docs.
     */

@@ -11,7 +11,7 @@ public interface Brain {
   public double score; // lower scores are better
  }
  
- /**
+ /*
   Given a piece and a board, returns a move object that represents
   the best play for that piece, or returns null if no play is possible.
   The board should be in the committed state when this is called.

@@ -5,7 +5,7 @@ import java.util.*;
 import java.awt.event.*;
 import javax.swing.event.*;
 
-/**
+/*
 JTetris presents a tetris game in a window.
 It handles the GUI and the animation.
 The Piece and Board classes handle the
@@ -168,7 +168,7 @@ public class JTetris extends JComponent {
             });
     }
 
-    /**
+    /*
     Stops the game.
      */
     public void stopGame() {
@@ -182,7 +182,7 @@ public class JTetris extends JComponent {
         gamesPlayed++;
     }
 
-    /**
+    /*
     Sets the internal state and starts the timer
     so the game is happening.
      */
@@ -206,7 +206,7 @@ public class JTetris extends JComponent {
         startTime = System.currentTimeMillis();
     }
 
-    /**
+    /*
     Sets the enabling of the start/stop buttons
     based on the gameOn state.
      */
@@ -215,7 +215,7 @@ public class JTetris extends JComponent {
         stopButton.setEnabled(gameOn);
     }
 
-    /**
+    /*
     Given a piece, tries to install that piece
     into the board and set it to be the current piece.
     Does the necessary repaints.
@@ -243,7 +243,7 @@ public class JTetris extends JComponent {
         return(result);
     }
 
-    /**
+    /*
     Selects the next piece to use using the random generator
     set in startGame().
      */
@@ -257,7 +257,7 @@ public class JTetris extends JComponent {
         return(piece);
     }
 
-    /**
+    /*
     Tries to add a new random at the top of the board.
     Ends the game if it's not possible.
      */
@@ -292,7 +292,7 @@ public class JTetris extends JComponent {
         countLabel.setText(Integer.toString(count));
     }
 
-    /**
+    /*
     Figures a new position for the current piece
     based on the given verb (LEFT, RIGHT, ...).
     The board should be in the committed state --
@@ -345,7 +345,7 @@ public class JTetris extends JComponent {
     public static final int RIGHT = 2;
     public static final int DROP = 3;
     public static final int DOWN = 4;
-    /**
+    /*
     Called to change the position of the current piece.
     Each key press call this once with the verbs
     LEFT RIGHT ROTATE DROP for the user moves,
@@ -408,7 +408,7 @@ public class JTetris extends JComponent {
         moved = (!failed && verb!=DOWN);
     }
 
-    /**
+    /*
     Given a piece and a position for the piece, generates
     a repaint for the rectangle that just encloses the piece.
      */
@@ -458,7 +458,7 @@ public class JTetris extends JComponent {
         return(Math.round(getHeight() -1 - (y+1)*dY()));
     }
 
-    /**
+    /*
     Draws the current board with a 1 pixel border
     around the whole thing. Uses the pixel helpers
     above to map board coords to pixel coords.
@@ -515,7 +515,7 @@ public class JTetris extends JComponent {
         }
     }
 
-    /**
+    /*
     Updates the timer to reflect the current setting of the 
     speed slider.
      */
@@ -524,7 +524,7 @@ public class JTetris extends JComponent {
         timer.setDelay((int)(DELAY - value*DELAY));
     }
 
-    /**
+    /*
     Creates the panel of UI controls.
     This code is very repetitive -- the GUI/XML
     extensions in Java 1.4 should make this sort
@@ -586,7 +586,7 @@ public class JTetris extends JComponent {
         return(panel);
     }
 
-    /**
+    /*
     Creates a Window,
     installs the JTetris or JBrainTetris,
     checks the testMode state,

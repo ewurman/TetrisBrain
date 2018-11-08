@@ -1,5 +1,5 @@
 
-/**
+/*
  A joke implementation based on LameBrain --
  plays very badly.
 */

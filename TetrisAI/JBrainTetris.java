@@ -1,4 +1,4 @@
-/**
+/*
 A simple Brain implementation.
 bestMove() iterates through all the possible x values
 and rotations to play a particular piece (there are only
@@ -46,7 +46,7 @@ implements Brain {
         myOpponent = this; //new Sith(false);
     }
 
-    /**
+    /*
     Creates the panel of UI controls.
     This code is very repetitive -- the GUI/XML
     extensions in Java 1.4 should make this sort
@@ -184,7 +184,7 @@ implements Brain {
     public static final int DROP = 3;
     public static final int DOWN = 4;
 
-    /**
+    /*
     Called to change the position of the current piece.
     Each key press call this once with the verbs
     LEFT RIGHT ROTATE DROP for the user moves,
@@ -292,7 +292,7 @@ implements Brain {
         moved = (!failed && verb!=DOWN);
     }
 
-    /**
+    /*
     Selects the next piece to use using the random generator
     set in startGame().  Updated to check on adversary
      */
@@ -345,7 +345,7 @@ implements Brain {
         opponent = (int) (value * 100);
     }
 
-    /**
+    /*
     Stops the game.
      */
     public void stopGame() {
@@ -359,7 +359,7 @@ implements Brain {
         gamePieces = 0;
     }
 
-    /**
+    /*
     Sets the enabling of the start/stop buttons
     based on the gameOn state.
      */
@@ -368,7 +368,7 @@ implements Brain {
         stopButton.setEnabled(gameOn);
     }
 
-    /**
+    /*
     Given a piece and a board, returns a move object that represents
     the best play for that piece, or returns null if no play is possible.
     See the Brain interface for details.

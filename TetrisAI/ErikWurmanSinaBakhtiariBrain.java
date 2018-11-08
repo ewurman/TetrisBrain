@@ -17,6 +17,8 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
     the best play for that piece, or returns null if no play is possible.
     See the Brain interface for details.
     */
+
+
     public Brain.Move bestMove(Board board, Piece piece, int limitHeight, Brain.Move move) {
         // Allocate a move object if necessary
         if (move==null) move = new Brain.Move();
@@ -81,6 +83,7 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
     - The number of blocks in the board (score increases when you fill a row)
     - The Max height
     - The average height
+    - Bumpiness
     - The difference in the range of column hights
     - The Number of Holes
       A hole that is covered is worse,
@@ -102,6 +105,16 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
 
 
     */
+    public int Roughness(){
+        final int width = board.getWidth();
+        int roughness = 0;
+        for (int col; col<width-1; col++){
+            curr = board.getColumnHeight(col);
+            next = board.getColumnHeight(col+1);
+            roughness += abs(curr-next);
+        }
+        return roughness
+    }
 
 
     /*
@@ -168,8 +181,6 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
         return blocks;
     }
 
-
-
     public int countHolesByEriksDefinition(Board board){
         final int width = board.getWidth();
         int holes = 0;
@@ -218,24 +229,19 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
             final int colHeight = board.getColumnHeight(x);
             sumHeight += colHeight;
        
-            /*int y = colHeight - 2; // addr of first possible hole
-
-            while (y>=0) {
-                if  (!board.getGrid(x,y)) {
-                    holes++;
-                }
-                y--;
-            }
-            */
         }
-        holes = countHolesByEriksDefinition(board);
+        int holes = countHolesByEriksDefinition(board);
+        int blockades = BlockadesBySinasDefinition(board);
+        int roughness = Roughness(board);
+
+
         int blocks = countBlocks(board);
         int heightRange = heightRange(board);
         double avgHeight = ((double)sumHeight)/width;
       
         // Add up the counts to make an overall score
         // The weights, 8, 40, etc., are just made up numbers that appear to work
-        return (4*maxHeight + 40*avgHeight + 2*heightRange + 1.5*holes + blocks); 
+        return (6*maxHeight + 5*avgHeight + 2*heightRange + 2*blocks + 12*holes + 10*roughness + 15*blockades); 
     }
 
 
