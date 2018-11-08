@@ -176,8 +176,8 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
 
         final int max = board.getMaxHeight();        
         int holes = holes(board);
-        int roughness = roughness(board);
-        //int roughness = surfaceArea(board);
+        //int roughness = roughness(board);
+        int roughness = surfaceArea(board);
         int height = aggregateHeight(board);
         int touching = touchingWall(board);
 
@@ -232,7 +232,7 @@ public int surfaceArea(Board board){
         final int width = board.getWidth();
         int sa = 0;
         for (int col = 0; col<width; col++){
-            int curr_y = board.getColumnHeight(col)-1;
+            int curr = board.getColumnHeight(col)-1;
             // stop when less than left and right heights
 
             if (col == 0) {
