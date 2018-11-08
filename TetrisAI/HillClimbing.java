@@ -11,6 +11,7 @@ to play each game.
 
 */
 
+
 import java.lang.Math;
 //import JBrainNoGraphics.*;
 
@@ -34,7 +35,6 @@ public class HillClimbing {
 			int third = game.getCount(); //score of a game with given weights
 
 			double score_with_current_weights = (first + second + third) / 3.0;
-
 			
 
 			double increment = Math.random() - 0.5; //range of [-0.5, 0.5)
