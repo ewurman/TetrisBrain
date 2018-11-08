@@ -5,7 +5,7 @@ import java.util.*;
 import java.awt.event.*;
 import javax.swing.event.*;
 
-/**
+/*
 JTetris presents a tetris game in a window.
 It handles the GUI and the animation.
 The Piece and Board classes handle the
@@ -94,7 +94,7 @@ public class JTetrisTrain extends JComponent {
     public int getCount(){
         return (count);
     }
-    /**
+    /*
     Stops the game.
      */
     public void stopGame() {
@@ -106,7 +106,7 @@ public class JTetrisTrain extends JComponent {
         gamesPlayed++;
     }
 
-    /**
+    /*
     Sets the internal state and starts the timer
     so the game is happening.
      */
@@ -131,7 +131,7 @@ public class JTetrisTrain extends JComponent {
     }
 
 
-    /**
+    /*
     Given a piece, tries to install that piece
     into the board and set it to be the current piece.
     Does the necessary repaints.
@@ -155,7 +155,7 @@ public class JTetrisTrain extends JComponent {
         return(result);
     }
 
-    /**
+    /*
     Selects the next piece to use using the random generator
     set in startGame().
      */
@@ -169,7 +169,7 @@ public class JTetrisTrain extends JComponent {
         return(piece);
     }
 
-    /**
+    /*
     Tries to add a new random at the top of the board.
     Ends the game if it's not possible.
      */
@@ -202,7 +202,7 @@ public class JTetrisTrain extends JComponent {
         }
     }
 
-    /**
+    /*
     Figures a new position for the current piece
     based on the given verb (LEFT, RIGHT, ...).
     The board should be in the committed state --
@@ -255,7 +255,7 @@ public class JTetrisTrain extends JComponent {
     public static final int RIGHT = 2;
     public static final int DROP = 3;
     public static final int DOWN = 4;
-    /**
+    /*
     Called to change the position of the current piece.
     Each key press call this once with the verbs
     LEFT RIGHT ROTATE DROP for the user moves,
@@ -315,7 +315,7 @@ public class JTetrisTrain extends JComponent {
     }
 
 
-    /**
+    /*
     installs the JTetris or JBrainTetris,
     checks the testMode state,
      */
