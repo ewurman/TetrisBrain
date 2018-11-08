@@ -91,6 +91,9 @@ public class JTetrisTrain extends JComponent {
             });*/
     }
 
+    public int getCount(){
+        return (count);
+    }
     /**
     Stops the game.
      */

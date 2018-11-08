@@ -109,11 +109,11 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
         final int width = board.getWidth();
         int roughness = 0;
         for (int col; col<width-1; col++){
-            curr = board.getColumnHeight(col);
-            next = board.getColumnHeight(col+1);
+            int curr = board.getColumnHeight(col);
+            int next = board.getColumnHeight(col+1);
             roughness += abs(curr-next);
         }
-        return roughness
+        return roughness;
     }
 
 
@@ -149,7 +149,7 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
                 }
             }
         }
-        return blockades
+        return blockades;
     }
 
     public int heightRange(Board board){
