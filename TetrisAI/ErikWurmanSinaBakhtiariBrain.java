@@ -19,19 +19,21 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
     the best play for that piece, or returns null if no play is possible.
     See the Brain interface for details.
     */
-    private double mh;
+    private double mh = 5;
     //private double hr;
-    private double h;
-    private double b;
-    private double r;
+    private double h = 20;
+    private double r = 3;
+    private double b = 0;
 
+    
     public ErikWurmanSinaBakhtiariBrain(double maxHeight, double holes, double roughness, double blockades){
         mh = maxHeight;
         h = holes;
         r = roughness;
         b = blockades;
-        System.out.println("In the ErikWurmanSinaBakhtiariBrain constructor");
+        //System.out.println("In the ErikWurmanSinaBakhtiariBrain constructor");
     }
+    
 
     public Brain.Move bestMove(Board board, Piece piece, int limitHeight, Brain.Move move) {
         // Allocate a move object if necessary
@@ -231,11 +233,11 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
             while (y>=0) {
                 if  (!board.getGrid(col,y)) {
                     holes++; // This space is empty and less than the height of this column, count doubly
-                    if (y <= leftColHeight){
+                    if (y < leftColHeight - 1){
                         holes++; //count another if at same height or less than left
                     }
-                    if (y <= rightColHeight){
-                        holes++; //count another if ath the same height or less than right
+                    if (y < rightColHeight - 1){
+                        holes++; //count another if in a hole to the right
                     }
                 }
                 y--;
@@ -246,7 +248,7 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
 
 
     public double rateBoard(Board board) {
-        System.out.println("In Rate Board");
+        //System.out.println("In Rate Board");
         final int width = board.getWidth();
         final int maxHeight = board.getMaxHeight();
       
@@ -258,7 +260,8 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
             sumHeight += colHeight;
        
         }
-        int holes = holes(board);
+        //int holes = holes(board);
+        int holes = countHolesByEriksDefinition(board);
         //int blockades = BlockadesBySinasDefinition(board);
         int roughness = Roughness(board);
 
