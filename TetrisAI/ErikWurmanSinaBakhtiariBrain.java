@@ -130,6 +130,22 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
         return roughness;
     }
 
+    public int holes(Board board){
+        final int width = board.getWidth();
+        int holes = 0;
+        for (int col=0; col<width; col++){
+            int row = board.getColumnHeight(col);
+            while (row>=0){
+                if (!board.getGrid){
+                    holes += 1;
+                }
+                else{
+                    y--;
+                }
+            }
+        }
+    }
+
 
     /*
     Blockade: a hole that is covered above
@@ -148,7 +164,7 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
             int y = board.getColumnHeight(col);
 
             if (y>0){ //ensure that you're not saying that an empty column has a blockade 
-                while(y<=0){
+                while(y>=0){
                     if (!board.getGrid(col,y) && !blockadeFlag){ // if hole and false flag
                         blockadeFlag = true;
                         blockades++;
