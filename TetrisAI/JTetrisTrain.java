@@ -328,7 +328,7 @@ public class JTetrisTrain extends JComponent {
         final int pixels = 16;
         final int trials = 100;
         JBrainNoGraphics tetris = new JBrainNoGraphics(WIDTH*pixels+2, (HEIGHT+TOP_SPACE)*pixels+2, Double.parseDouble(args[0]), 
-            Double.parseDouble(args[1]), Double.parseDouble(args[2]), Double.parseDouble(args[3]), Double.parseDouble(args[4]));
+            Double.parseDouble(args[1]), Double.parseDouble(args[2]), Double.parseDouble(args[3]));
 
         if (args.length != 0 && args[0].equals("test")) {
             tetris.testMode = true;
@@ -338,7 +338,7 @@ public class JTetrisTrain extends JComponent {
         int totalPieces = 0;
         for (int i = 0; i < trials; i++) {
             tetris.startGame();
-            System.out.println(tetris.getPieces());
+            //System.out.println(tetris.getPieces());
             totalPieces += tetris.getPieces();
         }
         System.out.println("Average number of pieces: "+(totalPieces/trials));

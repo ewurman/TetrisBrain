@@ -25,9 +25,8 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
     private double b;
     private double r;
 
-    public ErikWurmanSinaBakhtiariBrain(double maxHeight, double heightRange, double holes, double roughness, double blockades){
+    public ErikWurmanSinaBakhtiariBrain(double maxHeight, double holes, double roughness, double blockades){
         mh = maxHeight;
-        hr = heightRange;
         h = holes;
         r = roughness;
         b = blockades;
@@ -248,12 +247,12 @@ public class ErikWurmanSinaBakhtiariBrain implements Brain {
 
 
         int blocks = countBlocks(board);
-        int heightRange = heightRange(board);
+        //int heightRange = heightRange(board);
         double avgHeight = ((double)sumHeight)/width;
       
         // Add up the counts to make an overall score
         // The weights, 8, 40, etc., are just made up numbers that appear to work
-        return (mh*maxHeight + hr*heightRange + h*holes + r*roughness + b*blockades); 
+        return (mh*maxHeight + h*holes + r*roughness + b*blockades); 
     }
 
 
